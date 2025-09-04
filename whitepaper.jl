@@ -54,6 +54,97 @@ note right: Transaction is now confirmed.
 
 
 
+# ╔═╡ 4dfd1f12-f334-443b-a6c3-87cf1e49d15b
+graphviz"""
+digraph BitcoinProtocol {
+    // Graph settings for Dark Theme
+    graph [
+        rankdir=TB,
+        splines=true,
+        overlap=false,
+        nodesep=0.6,
+        ranksep=1.2,
+        fontname="Helvetica, Arial, sans-serif",
+        label="Simplified Bitcoin Protocol Flow",
+        fontsize=20,
+        bgcolor="#2E2E2E", // Dark background
+        fontcolor="white"   // Light text for title
+    ];
+
+    // Default Node styles for Dark Theme
+    node [
+        shape=box,
+        style="filled,rounded",
+        fontname="Helvetica, Arial, sans-serif",
+        fontsize=12,
+        fontcolor="white", // Light text
+        color="#E0E0E0"    // Light border
+    ];
+
+    // Default Edge styles for Dark Theme
+    edge [
+        fontname="Helvetica, Arial, sans-serif",
+        color="#E0E0E0",    // Light edge lines
+        fontcolor="#E0E0E0" // Light edge labels
+    ];
+
+    // Define nodes with dark theme colors
+    User [label="User", shape=oval, fillcolor="#5D6D7E"];
+    Wallet [label="Wallet Software", fillcolor="#5D6D7E"];
+    Tx [label="New Transaction\n(Unconfirmed)", shape=note, fillcolor="#AF601A"];
+    Mempool [label="Mempool\n(Queue of Unconfirmed Txs)", shape=cylinder, fillcolor="#154360"];
+    Nodes [label="Full Nodes", shape=server, fillcolor="#1E8449"];
+    Miners [label="Miners", shape=doublecircle, fillcolor="#6C3483", peripheries=2];
+    PoW [label="Proof-of-Work\n(Hashing Contest)", shape=septagon, style=dashed, fillcolor="#922B21", color="white"];
+    Block [label="New Block\n(with Txs)", shape=box3d, fillcolor="#78281F"];
+    Blockchain [label="Blockchain\n(Distributed Ledger)", shape=folder, fillcolor="#145A32", height=1.5];
+
+    // Define edges (relationships)
+    subgraph cluster_creation {
+        label="1. Transaction Creation";
+        style=dashed;
+        color="lightgray";
+        fontcolor="lightgray";
+        User -> Wallet [label="initiates"];
+        Wallet -> Tx [label="creates & signs"];
+    }
+
+    subgraph cluster_propagation {
+        label="2. Network Propagation";
+        style=dashed;
+        color="lightgray";
+        fontcolor="lightgray";
+        Tx -> Nodes [label="broadcasts to"];
+        Nodes -> Mempool [label="adds to"];
+        Nodes -> Nodes [label="relays Txs"];
+    }
+
+    subgraph cluster_mining {
+        label="3. Mining & Consensus";
+        style=dashed;
+        color="lightgray";
+        fontcolor="lightgray";
+        Mempool -> Miners [label="selects Txs"];
+        Miners -> PoW [label="competes to solve"];
+        PoW -> Block [label="valid solution creates"];
+        Tx -> Block [style=dotted, label="is included in"];
+    }
+
+    subgraph cluster_confirmation {
+        label="4. Block Confirmation";
+        style=dashed;
+        color="lightgray";
+        fontcolor="lightgray";
+        Miners -> Nodes [label="broadcasts new Block"];
+        Nodes -> Blockchain [label="validates & adds"];
+        Block -> Blockchain [label="is appended to"];
+    }
+
+    // Final link to show the chain
+    Blockchain -> Blockchain [label="previous blocks"];
+}
+"""
+
 # ╔═╡ c677ae2c-04f4-4009-8f77-4a5537d52d32
 md"# BioProtocol"
 
@@ -112,6 +203,68 @@ note left: Token holders vote on key\nresearch milestones & decisions.
 BioDAO -> BioDAO: **Execute Research & Development**
 BioDAO --> Community: Report on scientific milestones
 deactivate BioDAO
+"""
+
+# ╔═╡ aeaa2125-2718-41a7-981e-3740224b817c
+graphviz"""
+digraph BioProtocolWorkflow {
+    // --- Graph Attributes ---
+    bgcolor="#2E3440";
+    fontcolor="white";
+    fontname="Arial";
+    label="BioProtocol Network: DeSci Funding & Governance";
+    labelloc="t";
+    fontsize=24;
+    rankdir="TB";
+
+    // --- Node Definitions ---
+    // Define all nodes with their individual styles first for clarity.
+    subgraph cluster_actors {
+        label=""; color="#2E3440";
+        Scientist [
+            label="Scientist / Innovator", shape=box, style="filled,rounded",
+            fillcolor="#A3BE8C", color="#D8DEE9", fontcolor="white"
+        ];
+        Community [
+            label="BIO Token Holders\n(Community)", shape=box, style="filled,rounded",
+            fillcolor="#A3BE8C", color="#D8DEE9", fontcolor="white"
+        ];
+    }
+
+    subgraph cluster_systems {
+        label=""; color="#2E3440";
+        Platform [
+            label="BioProtocol Platform", shape=component, style=filled,
+            fillcolor="#88C0D0", fontcolor="white"
+        ];
+        BioDAO [
+            label="New Project BioDAO", shape=tab, style=filled,
+            fillcolor="#B48EAD", fontcolor="white"
+        ];
+        Treasury [
+            label="Treasury & LP", shape=cylinder, style=filled,
+            fillcolor="#5E81AC", fontcolor="white"
+        ];
+    }
+
+    // --- Edge Definitions ---
+    // Define all relationships between the nodes.
+    edge [fontname="Arial", fontsize=10, fontcolor="white", color="#ECEFF4"];
+
+    // Phase 1: Curation
+    Scientist -> Platform [label="1. Submits Proposal"];
+    Platform -> Community [label="2. Announces Proposal"];
+    Community -> Platform [label="3. Stakes BIO Tokens\n(to show support)"];
+
+    // Phase 2: Funding
+    Platform -> Community [label="4. Initiates Ignition Sale", style=dashed];
+    Community -> BioDAO [label="5. Contributes BIO to Fund DAO"];
+
+    // Phase 3: Governance & Execution
+    BioDAO -> Scientist [label="6. Allocates R&D Funds"];
+    Platform -> Treasury [label="7. Creates Liquidity Pool (LP)"];
+    Community -> BioDAO [label="8. Participates in Governance\n(Voting on milestones)"];
+}
 """
 
 # ╔═╡ 54afd7f3-00eb-4154-b88b-53c801abb100
@@ -197,6 +350,180 @@ Contracts -> Owner: Distribute calculated Matching Funds
 deactivate Contracts
 
 Owner -> Owner: Receive combined funds\n(Direct donations + QF Match)
+
+"""
+
+# ╔═╡ 09a4f87f-bddb-4db0-a943-829cda17d4d0
+graphviz"""
+digraph GitcoinGrantsWorkflow {
+    // --- Graph Attributes ---
+    bgcolor="#2E3440";
+    fontcolor="white";
+    fontname="Arial";
+    label="Gitcoin Grants: Quadratic Funding Workflow";
+    labelloc="t";
+    fontsize=24;
+    rankdir="TB";
+
+    // --- Node Definitions & Styling ---
+    node [style=filled, fontname="Arial", fontcolor="white"];
+
+    subgraph cluster_actors {
+        label="";
+        color="#2E3440";
+        node [shape=box, style="filled,rounded", fillcolor="#4C566A", color="#D8DEE9"];
+        Owner [label="Grant Owner"];
+        Donor [label="Community Donor"];
+    }
+
+    subgraph cluster_systems {
+        label="";
+        color="#2E3440";
+        node [shape=cylinder, style=filled, fillcolor="#5E81AC", color="#ECEFF4"];
+        Pool [label="Matching Pool"];
+        Contracts [label="Smart Contracts"];
+
+        node [shape=component, fillcolor="#88C0D0"];
+        Platform [label="Gitcoin Platform"];
+    }
+
+
+    // --- Edge Styling ---
+    edge [fontname="Arial", fontsize=10, fontcolor="white", color="#ECEFF4"];
+
+
+    // --- Workflow Edges ---
+
+    // Phase 1: Setup
+    Owner -> Platform [label="1. Submits Grant Proposal"];
+
+    // Phase 2: Funding Round
+    Donor -> Platform [label="2. Contributes Funds"];
+    Platform -> Contracts [label="3. Processes Donation"];
+    Contracts -> Owner [label="4. Transfers Direct Donation"];
+
+    // Phase 3: Distribution
+    Platform -> Pool [label="5. Calculates & Requests QF Match", style=dashed, arrowhead=vee];
+    Pool -> Contracts [label="6. Allocates Match"];
+    Contracts -> Owner [label="7. Distributes QF Match"];
+
+    // Explanatory note for QF
+    {
+        rank=same; Platform;
+        QF_Note [
+            label="Quadratic Funding (QF) Calculation\nhappens here.\nFavors number of donors over total amount.",
+            shape=note, fillcolor="#EBCB8B", fontcolor="#3B4252", fontsize=11
+        ];
+        Platform -> QF_Note [style=invis];
+    }
+}
+"""
+
+# ╔═╡ 7c759c32-1b47-4f3f-97c1-d638d52ee2af
+md"# Autonomi Network"
+
+# ╔═╡ 3b3998ad-9f1d-4ef7-a760-4d7edd6d5782
+plantuml"""
+!theme spacelab
+
+title Autonomi Network: Data Upload (PUT) and Retrieval (GET) Flow
+
+actor "User/Client" as Client
+participant "Section Elders" as Elders
+participant "Adults (Vaults)\n(Close Group)" as Vaults
+
+box "Autonomi Network Section" #LightBlue
+    participant Elders
+    participant Vaults
+end box
+
+== Data Upload (PUT) ==
+
+Client -> Client: 1. Self-Encrypt Data & Create DataMap
+note right: Data is chunked, hashed, and encrypted locally.\nThe addresses of the chunks form a DataMap.
+
+Client -> Elders: 2. PUT Request (DataMap)
+note left: Client identifies the destination Section\nbased on the data's XOR address.
+
+Elders -> Elders: 3. Achieve Consensus
+note right: Elders validate the request and agree\non the storage location (a Close Group of Vaults).
+
+Elders -> Vaults: 4. Instruct to Store Chunks
+note right: Elders forward the data chunks to the\nresponsible Adult nodes (Vaults) in the section.
+
+Vaults -> Vaults: 5. Store Data Chunks Redundantly
+note left: Each Vault stores a chunk. The Close Group\nensures data is replicated for fault tolerance.
+
+Vaults --> Elders: 6. Acknowledge Storage
+Elders -> Client: 7. Confirm Successful Upload
+
+== Data Retrieval (GET) ==
+
+Client -> Elders: 8. GET Request (Data Address)
+note left: Client requests data using its unique XOR address.
+
+Elders -> Elders: 9. Locate Data
+note right: Elders identify the Close Group of Vaults\nholding the requested data chunks.
+
+Elders -> Vaults: 10. Request Data Chunks
+Vaults --> Elders: 11. Return Data Chunks
+
+Elders --> Client: 12. Return Data Chunks
+Client -> Client: 13. Reassemble & Decrypt Data
+note right: Client uses the DataMap to reassemble the\nchunks and decrypt the original file locally.
+
+"""
+
+# ╔═╡ 976e7588-6e3e-4617-a9ff-4100373b1aa4
+plantuml"""
+!theme spacelab
+
+' Set layout direction
+left to right direction
+
+' Define packages to group components
+package "User Interaction" #LightGrey {
+  actor "User" as User
+  component "Autonomi Client" as Client
+}
+
+package "Core Security Mechanisms" #LightBlue {
+  component "Self-Authentication\n(BLS Distributed Key Gen)" as Auth
+  component "Self-Encryption\n(Quantum-Secure)" as Encrypt
+}
+
+package "Data Handling" #LightYellow {
+  file "Data"
+  note "Data Chunks" as Chunks
+  note "Data Map\n(on user device)" as DataMap
+}
+
+package "Decentralized Network" #LightGreen {
+    node "Peer-to-Peer Network\n(Nodes on everyday devices)" as P2P_Network
+    component "Networking Libraries\n(TCP/UDP based)" as Libs
+}
+
+package "Payments & Transfers" #LightCoral {
+    component "Payments System\n(Digital Bearer Certificates)" as Payments
+    database "Public 'Spend' Graph\n(DAG for Auditing)" as SpendGraph
+}
+
+' Define relationships between components
+User --> Client : interacts with
+
+Client --> Auth : handles
+Client --> Data : uploads/downloads
+Client --> Payments : initiates
+
+Data --> Chunks : split into
+Chunks --> Encrypt : is processed by
+Encrypt --> DataMap : creates
+Encrypt --> P2P_Network : sends encrypted chunks to
+
+DataMap --> P2P_Network : points to chunks on
+
+Payments --> SpendGraph : audited via
+P2P_Network --> Libs : built on
 
 """
 
@@ -969,9 +1296,15 @@ version = "17.4.0+2"
 # ╟─6a3d0a57-5934-47d8-9015-fa0eb465582f
 # ╟─b0dcbe50-9e2f-4650-b5d1-9bdbaa9c1c9e
 # ╟─aee5f220-89d9-11f0-24d1-9fe74cca62d3
+# ╟─4dfd1f12-f334-443b-a6c3-87cf1e49d15b
 # ╟─c677ae2c-04f4-4009-8f77-4a5537d52d32
 # ╟─e174ee27-7f3e-4cda-993a-7f3e92e0c325
+# ╟─aeaa2125-2718-41a7-981e-3740224b817c
 # ╟─54afd7f3-00eb-4154-b88b-53c801abb100
 # ╟─3688e433-9ee4-4592-99ce-8f94b29a0ab0
+# ╟─09a4f87f-bddb-4db0-a943-829cda17d4d0
+# ╟─7c759c32-1b47-4f3f-97c1-d638d52ee2af
+# ╟─3b3998ad-9f1d-4ef7-a760-4d7edd6d5782
+# ╟─976e7588-6e3e-4617-a9ff-4100373b1aa4
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
