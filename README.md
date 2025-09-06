@@ -44,16 +44,18 @@ after you get to:
 again from the raw directory,
 paste these bits in:
 ```
-        Pkg.activate()
-        Pkg.add("PlutoUI")
-        Pkg.add("Kroki")
-        Pkg.add("ShortCodes")
-        Pkg.add("PlutoTeachingTools")
-        Pkg.add("MarkdownLiteral")
-        Pkg.add("InteractiveUtils")
-        Pkg.add("Markdown")
-        Pkg.instantiate()
-        Pluto.run(notebook = joinpath(pwd(), "whitepaper.jl"))
+using Pkg
+Pkg.activate()
+Pkg.add("PlutoUI")
+Pkg.add("Kroki")
+Pkg.add("ShortCodes")
+Pkg.add("PlutoTeachingTools")
+Pkg.add("MarkdownLiteral")
+Pkg.add("InteractiveUtils")
+Pkg.add("Markdown")
+Pkg.instantiate()
+import Pluto
+Pluto.run(notebook = joinpath(pwd(), "whitepaper.jl"))
 ```
 "PlutoLinks", "Plots", "PlutoSliderServer", 
         "Javis", "Animation" 
