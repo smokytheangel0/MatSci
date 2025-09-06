@@ -5,4 +5,5 @@ edition = "2024"
 
 [dependencies]
 #see you someday
-jlrs = {version = "0.21.1", features = ["julia-1-12"]}
+jlrs = { version = "0.19", features = ["async", "tokio-rt"] }
+tokio = { version = "1", features = ["full"] }
