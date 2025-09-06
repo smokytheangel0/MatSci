@@ -60,4 +60,7 @@ Pluto.run(notebook = joinpath(pwd(), "whitepaper.jl"))
 "PlutoLinks", "Plots", "PlutoSliderServer", 
         "Javis", "Animation" 
 
-are also good
+are also good.
+
+Eventually we would like to support being able to just cargo run --release or use a build.rs
+file to run verus and copy the binary out to the root directory.
