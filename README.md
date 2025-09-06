@@ -1,4 +1,4 @@
-Download this ```https://git-scm.com/downloads/win```
+Download [Git](https://git-scm.com/downloads/win)
 and install it in the typical fashion.
 
 Then open a shell and paste:    
