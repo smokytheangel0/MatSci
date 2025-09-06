@@ -1,12 +1,14 @@
 Download this ```https://git-scm.com/downloads/win```
 and install it in the typical fashion.
 
-Then open a shell and paste:
+Then open a shell and paste:    
     ```
-    git clone https://github.com/smokytheangel0/MatSci
-    cd MatSci
-    ```
-then paste:  
+    git clone https://github.com/smokytheangel0/MatSci  
+    ```   
+    ``` 
+    cd MatSci   
+    ```  
+hit enter, then paste:  
     ```  
     winget install -y Microsoft.VisualStudio.2022.BuildTools  
     ```  
