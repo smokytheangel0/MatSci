@@ -44,7 +44,6 @@ after you get to:
 again from the raw directory,
 paste these bits in:
 ```
-        cd(joinpath(pwd(), "raw"))
         Pkg.activate()
         Pkg.add("PlutoUI")
         Pkg.add("Kroki")
