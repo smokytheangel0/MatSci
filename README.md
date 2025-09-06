@@ -1,4 +1,12 @@
-Open your shell and paste:  
+Download this ```https://git-scm.com/downloads/win```
+and install it in the typical fashion.
+
+Then open a shell and paste:
+    ```
+    git clone https://github.com/smokytheangel0/MatSci
+    cd MatSci
+    ```
+then paste:  
     ```  
     winget install -y Microsoft.VisualStudio.2022.BuildTools  
     ```  
@@ -59,8 +67,16 @@ Pluto.run(notebook = joinpath(pwd(), "whitepaper.jl"))
 ```
 "PlutoLinks", "Plots", "PlutoSliderServer", 
         "Javis", "Animation" 
-
 are also good.
 
-Eventually we would like to support being able to just cargo run --release or use a build.rs
-file to run verus and copy the binary out to the root directory.
+
+Eventually we would like to support being able to just ```cargo run --release``` or use a build.rs file to run verus and copy the binary out to the root directory. This will bring us down to six commands for the same contributor startup speed, and exes that we can share with people who don't wish to use a terminal:
+```
+winget install -y Microsoft.VisualStudio.2022.BuildTools  
+winget install --name Julia --id 9NJNWW8PVKMN -e -s msstore  
+winget install -e --id Rustlang.Rustup
+git clone https://github.com/smokytheangel0/MatSci
+cd MatSci
+cargo run --release
+[browser opens with all deps cached]
+```
