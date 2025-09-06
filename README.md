@@ -33,3 +33,30 @@ finally type:
 
 A browser should pop up and you will be presented with a page with a text field somewhere to open your file from.
 Clicking the textfield will yield a drop down menu from which you can select whitepaper.jl, then click open.
+
+If you want to cache the packages this uses between restarts, there is a bit more for now
+until we get an exe moving. You only have to do this once though.
+
+after you get to:
+        ```
+        julia>
+        ```
+again from the MatSci directory,
+paste these bits in:
+```
+        cd(joinpath(pwd(), "src"))
+        Pkg.activate()
+        Pkg.add("PlutoUI")
+        Pkg.add("Kroki")
+        Pkg.add("ShortCodes")
+        Pkg.add("PlutoTeachingTools")
+        Pkg.add("MarkdownLiteral")
+        Pkg.add("InteractiveUtils")
+        Pkg.add("Markdown")
+        Pkg.instantiate()
+        Pluto.run(notebook = joinpath(pwd(), "whitepaper.jl"))
+```
+"PlutoLinks", "Plots", "PlutoSliderServer", 
+        "Javis", "Animation" 
+
+are also good
