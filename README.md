@@ -11,7 +11,7 @@ Then hit enter and follow the instructions
 
 After these steps are complete you should be able to type in:  
     ```  
-    cd src  
+    cd raw  
     ```  
 then hit enter and next type:  
     ```  
@@ -41,10 +41,10 @@ after you get to:
         ```
         julia>
         ```
-again from the MatSci directory,
+again from the raw directory,
 paste these bits in:
 ```
-        cd(joinpath(pwd(), "src"))
+        cd(joinpath(pwd(), "raw"))
         Pkg.activate()
         Pkg.add("PlutoUI")
         Pkg.add("Kroki")
