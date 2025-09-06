@@ -4,3 +4,5 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+#see you someday
+jlrs = {version = "0.21.1", features = ["julia-1-12"]}
