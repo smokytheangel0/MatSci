@@ -1,5 +1,8 @@
 Download [Git](https://git-scm.com/downloads/win)
-and install it in the typical fashion.
+and install it in the typical fashion using the defaults.
+
+Then download [VSCode](https://code.visualstudio.com/download)
+and install it in the typical fashion using the defaults.
 
 Then open a shell and paste:    
     ```
@@ -10,9 +13,12 @@ Then open a shell and paste:
     ```  
 hit enter, then paste:  
     ```  
-    winget install -y Microsoft.VisualStudio.2022.BuildTools  
+    winget install Microsoft.VisualStudio.2022.BuildTools  
     ```  
 Then hit enter and follow the instructions  
+Download [Rust](https://www.rust-lang.org/tools/install)
+and install it in the normal way.
+
 After it is complete and you can type in a straight line again, paste:  
     ```  
     winget install --name Julia --id 9NJNWW8PVKMN -e -s msstore  
